@@ -87,3 +87,11 @@
     font-size: 13px;
     color: var(--text-2);
 }
+
+.summary-paragraph {
+    margin-bottom: 10px;
+}
+
+.summary-paragraph:last-child {
+    margin-bottom: 0;
+}

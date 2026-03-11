@@ -1,9 +1,22 @@
 import "../styles/ResultCard.css"
 
-const formatSummary = (text) => {
+const formatLine = (text) => {
     return text
         .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
         .replace(/\*(.*?)\*/g, "<em>$1</em>")
+}
+
+const formatSummary = (text) => {
+    return text
+        .split("\n")
+        .filter((line) => line.trim() !== "")
+        .map((line, i) => (
+            <p
+                key={i}
+                className="summary-paragraph"
+                dangerouslySetInnerHTML={{ __html: formatLine(line) }}
+            />
+        ))
 }
 
 const ResultCard = ({ status, message, summary }) => {
@@ -22,10 +35,9 @@ const ResultCard = ({ status, message, summary }) => {
             {status === "success" && summary && (
                 <div className="summary-body">
                     <p className="summary-label">AI Generated Summary</p>
-                    <div
-                        className="summary-text"
-                        dangerouslySetInnerHTML={{ __html: formatSummary(summary) }}
-                    />
+                    <div className="summary-text">
+                        {formatSummary(summary)}
+                    </div>
                 </div>
             )}
 
